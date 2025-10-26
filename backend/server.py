@@ -270,13 +270,13 @@ async def upload_profile_image(file: UploadFile = File(...), current_user: dict 
         img_str = base64.b64encode(buffer.getvalue()).decode()
         img_data_url = f"data:image/jpeg;base64,{img_str}"
         
-        # Update user
+        # Update user profile image (no KYC requirement until 100 followers)
         await db.users.update_one(
             {'id': current_user['id']},
-            {'$set': {'profile_image': img_data_url, 'is_approved': False}}
+            {'$set': {'profile_image': img_data_url}}
         )
         
-        return {'profile_image': img_data_url, 'message': 'Image uploaded. Pending admin approval.'}
+        return {'profile_image': img_data_url, 'message': 'Profile image updated successfully!'}
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid image: {str(e)}")
 
