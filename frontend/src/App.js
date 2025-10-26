@@ -3,6 +3,7 @@ import '@/App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import axios from 'axios';
+import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import CreatorPage from './pages/CreatorPage';
@@ -134,7 +135,8 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/home" />} />
+            <Route path="/home" element={user ? <HomePage /> : <Navigate to="/" />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/" />} />
             <Route path="/:username" element={<CreatorPage />} />

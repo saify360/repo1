@@ -1,28 +1,91 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../App';
-import { User, LogOut, Wallet } from 'lucide-react';
+import { User, LogOut, Wallet, Home, Compass } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout, connectWallet, walletAddress } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="navbar" data-testid="navbar">
       <div className="navbar-container">
-        <div className="navbar-logo" onClick={() => navigate('/')} data-testid="navbar-logo">
+        <div 
+          className="navbar-logo" 
+          onClick={() => navigate(user ? '/home' : '/')} 
+          data-testid="navbar-logo"
+          style={{ cursor: 'pointer' }}
+        >
           3AM
         </div>
         
         <div className="navbar-menu">
-          <a href="/explore" className="navbar-link" data-testid="nav-explore">Explore</a>
+          {user && (
+            <>
+              <button
+                onClick={() => navigate('/home')}
+                className="navbar-link"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: isActive('/home') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+                  fontWeight: isActive('/home') ? '600' : '500'
+                }}
+                data-testid="nav-home"
+              >
+                <Home size={18} />
+                Home
+              </button>
+            </>
+          )}
+          
+          <button
+            onClick={() => navigate('/explore')}
+            className="navbar-link"
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              color: isActive('/explore') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+              fontWeight: isActive('/explore') ? '600' : '500'
+            }}
+            data-testid="nav-explore"
+          >
+            <Compass size={18} />
+            Explore
+          </button>
           
           {user ? (
             <>
-              <a href="/profile" className="navbar-link" data-testid="nav-profile">
-                <User size={18} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+              <button
+                onClick={() => navigate('/profile')}
+                className="navbar-link"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: isActive('/profile') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+                  fontWeight: isActive('/profile') ? '600' : '500'
+                }}
+                data-testid="nav-profile"
+              >
+                <User size={18} />
                 My Profile
-              </a>
+              </button>
+              
               {!walletAddress && (
                 <button className="btn-wallet" onClick={connectWallet} data-testid="nav-connect-wallet">
                   <Wallet size={18} /> Connect Wallet
