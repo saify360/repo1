@@ -91,7 +91,9 @@ class User(BaseModel):
     bio: Optional[str] = None
     profile_image: Optional[str] = None
     cover_image: Optional[str] = None
-    is_approved: bool = False
+    is_approved: bool = True  # Auto-approved on signup
+    kyc_status: str = "not_required"  # "not_required", "pending", "approved", "rejected"
+    kyc_submitted_at: Optional[datetime] = None
     subscriber_count: int = 0
     total_tips_received: float = 0.0
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
