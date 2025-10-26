@@ -432,10 +432,22 @@ async def subscribe(sub_data: SubscribeRequest, current_user: dict = Depends(get
     await db.subscriptions.insert_one(subscription)
     
     # Update creator's subscriber count
-    await db.users.update_one(
+    result = await db.users.find_one_and_update(
         {'username': sub_data.creator_username},
-        {'$inc': {'subscriber_count': 1}}
+        {'$inc': {'subscriber_count': 1}},
+        return_document=True
     )
+    
+    # Check if creator needs KYC (100+ subscribers)
+    if result and result.get('subscriber_count', 0) >= 100:
+        kyc_status = result.get('kyc_status', 'not_required')
+        if kyc_status == 'not_required':
+            # Trigger KYC requirement
+            await db.users.update_one(
+                {'username': sub_data.creator_username},
+                {'$set': {'kyc_status': 'pending'}}
+            )
+            logger.info(f"KYC required for {sub_data.creator_username} - reached 100 subscribers")
     
     return {'success': True, 'message': 'Subscribed successfully'}
 
