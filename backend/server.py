@@ -492,8 +492,9 @@ async def approve_user(user_id: str, current_user: dict = Depends(get_current_us
 # Discovery
 @api_router.get("/discover/creators")
 async def discover_creators(limit: int = 20):
+    # Show all creators (no approval needed to appear)
     creators = await db.users.find(
-        {'is_approved': True},
+        {},
         {'_id': 0, 'password_hash': 0}
     ).sort('subscriber_count', -1).limit(limit).to_list(limit)
     return creators
