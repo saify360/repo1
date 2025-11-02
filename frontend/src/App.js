@@ -10,6 +10,7 @@ import CreatorPage from './pages/CreatorPage';
 import ExplorePage from './pages/ExplorePage';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
+import ThemeToggle from './components/ThemeToggle';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -22,6 +23,10 @@ function App() {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [walletAddress, setWalletAddress] = useState(null);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved ? JSON.parse(saved) : false;
+  });
 
   useEffect(() => {
     if (token) {
@@ -32,6 +37,16 @@ function App() {
   useEffect(() => {
     initializeWallet();
   }, []);
+
+  useEffect(() => {
+    // Apply dark mode class to body
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const initializeWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -118,6 +133,10 @@ function App() {
     setUser(null);
   };
 
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
   const authValue = {
     user,
     token,
@@ -127,12 +146,15 @@ function App() {
     connectWallet,
     login,
     logout,
+    darkMode,
+    toggleTheme,
     API
   };
 
   return (
     <AuthContext.Provider value={authValue}>
       <div className="App">
+        <ThemeToggle darkMode={darkMode} toggleTheme={toggleTheme} />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/home" />} />
