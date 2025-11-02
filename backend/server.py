@@ -455,19 +455,39 @@ async def get_subscriptions(current_user: dict = Depends(get_current_user)):
     return subs
 
 # Admin Routes
+@api_router.get("/admin/pending-kyc")
+async def get_pending_kyc(current_user: dict = Depends(get_current_user)):
+    # Get users who need KYC verification (100+ followers)
+    pending = await db.users.find(
+        {'kyc_status': 'pending', 'subscriber_count': {'$gte': 100}},
+        {'_id': 0, 'password_hash': 0}
+    ).to_list(100)
+    return pending
+
+@api_router.post("/admin/approve-kyc/{user_id}")
+async def approve_kyc(user_id: str, current_user: dict = Depends(get_current_user)):
+    await db.users.update_one({'id': user_id}, {'$set': {'kyc_status': 'approved'}})
+    return {'success': True, 'message': 'KYC approved'}
+
+@api_router.post("/admin/reject-kyc/{user_id}")
+async def reject_kyc(user_id: str, current_user: dict = Depends(get_current_user)):
+    await db.users.update_one({'id': user_id}, {'$set': {'kyc_status': 'rejected'}})
+    return {'success': True, 'message': 'KYC rejected'}
+
 @api_router.get("/admin/pending-approvals")
 async def get_pending_approvals(current_user: dict = Depends(get_current_user)):
-    # Simple admin check (in production, use proper role-based auth)
+    # This is now for KYC approvals (100+ followers)
     pending = await db.users.find(
-        {'is_approved': False, 'profile_image': {'$ne': None}},
+        {'kyc_status': 'pending'},
         {'_id': 0, 'password_hash': 0}
     ).to_list(100)
     return pending
 
 @api_router.post("/admin/approve/{user_id}")
 async def approve_user(user_id: str, current_user: dict = Depends(get_current_user)):
-    await db.users.update_one({'id': user_id}, {'$set': {'is_approved': True}})
-    return {'success': True, 'message': 'User approved'}
+    # This now approves KYC
+    await db.users.update_one({'id': user_id}, {'$set': {'kyc_status': 'approved'}})
+    return {'success': True, 'message': 'User KYC approved'}
 
 # Discovery
 @api_router.get("/discover/creators")
