@@ -35,7 +35,7 @@ const Navbar = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  color: isActive('/home') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+                  color: isActive('/home') ? '#5a67d8' : '#4a5568',
                   fontWeight: isActive('/home') ? '600' : '500'
                 }}
                 data-testid="nav-home"
@@ -56,7 +56,7 @@ const Navbar = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              color: isActive('/explore') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+              color: isActive('/explore') ? '#5a67d8' : '#4a5568',
               fontWeight: isActive('/explore') ? '600' : '500'
             }}
             data-testid="nav-explore"
@@ -77,7 +77,7 @@ const Navbar = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  color: isActive('/profile') ? '#667eea' : 'rgba(255, 255, 255, 0.8)',
+                  color: isActive('/profile') ? '#5a67d8' : '#4a5568',
                   fontWeight: isActive('/profile') ? '600' : '500'
                 }}
                 data-testid="nav-profile"
@@ -86,22 +86,17 @@ const Navbar = () => {
                 My Profile
               </button>
               
-              {!walletAddress && (
+              {!walletAddress ? (
                 <button className="btn-wallet" onClick={connectWallet} data-testid="nav-connect-wallet">
                   <Wallet size={18} /> Connect Wallet
                 </button>
+              ) : (
+                <div className="welcome-badge" data-testid="nav-welcome-badge">
+                  <Wallet size={16} />
+                  Welcome, {user?.display_name || 'Creator'}
+                </div>
               )}
-              {walletAddress && (
-                <span style={{ 
-                  background: 'rgba(67, 233, 123, 0.2)', 
-                  padding: '8px 16px', 
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  border: '1px solid rgba(67, 233, 123, 0.3)'
-                }} data-testid="nav-wallet-address">
-                  {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
-                </span>
-              )}
+              
               <button 
                 className="btn-secondary" 
                 onClick={logout}

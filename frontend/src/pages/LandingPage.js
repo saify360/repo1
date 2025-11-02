@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Wallet, Users, Zap, Shield } from 'lucide-react';
+import { DollarSign, Users, Shield, Zap } from 'lucide-react';
 import AuthModal from '../components/AuthModal';
 
 const LandingPage = () => {
@@ -27,10 +27,11 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <div className="hero-section" data-testid="hero-section">
-        <h1 className="hero-title" data-testid="hero-title">Welcome to 3AM</h1>
+        <h1 className="hero-title" data-testid="hero-title" style={{ maxWidth: '1100px' }}>
+          Create. Collaborate. Conquer.
+        </h1>
         <p className="hero-subtitle" data-testid="hero-subtitle">
-          The seamless Web3 creator platform. Build, fund, and monetize your ideas
-          without the crypto complexity.
+          Drop-kick valueless clickbait out of your feed and join a decentralized universe of creators actually getting paid for their work. Earn, monetize, and grow your story now.
         </p>
         
         <div className="hero-buttons">
@@ -38,6 +39,7 @@ const LandingPage = () => {
             className="btn-primary" 
             onClick={() => setShowAuth(true)}
             data-testid="get-started-btn"
+            style={{ fontSize: '16px', padding: '14px 40px' }}
           >
             Get Started
           </button>
@@ -45,6 +47,7 @@ const LandingPage = () => {
             className="btn-secondary" 
             onClick={() => navigate('/explore')}
             data-testid="explore-btn"
+            style={{ fontSize: '16px', padding: '14px 40px' }}
           >
             Explore Creators
           </button>
@@ -53,41 +56,64 @@ const LandingPage = () => {
         {/* Features Section */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '32px',
           marginTop: '100px',
           maxWidth: '1200px',
           width: '100%'
         }}>
-          <div className="glass-card" style={{ padding: '32px', textAlign: 'center' }} data-testid="feature-wallet">
-            <Wallet size={48} style={{ color: '#667eea', marginBottom: '16px', margin: '0 auto 16px' }} />
-            <h3 style={{ fontSize: '20px', marginBottom: '12px' }}>Smart Wallet</h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>
-              Unified fiat + crypto wallet with instant payouts in USDC
+          <div className="glass-card" style={{ padding: '32px' }} data-testid="feature-money">
+            <DollarSign size={48} style={{ color: '#48bb78', marginBottom: '16px' }} />
+            <h3 style={{ fontSize: '20px', marginBottom: '12px', color: '#1a1d29' }}>We Don't Send Plaques, We Send Money</h3>
+            <p style={{ color: '#4a5568', fontSize: '14px', lineHeight: '1.6' }}>
+              94%-6% creator-3AM split with free instant tipping, revenue splits, and payouts in USDC.
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '32px', textAlign: 'center' }} data-testid="feature-monetize">
-            <Zap size={48} style={{ color: '#43e97b', marginBottom: '16px', margin: '0 auto 16px' }} />
-            <h3 style={{ fontSize: '20px', marginBottom: '12px' }}>Instant Monetization</h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>
-              Receive tips, mint NFTs, and earn from your content instantly
+          <div className="glass-card" style={{ padding: '32px' }} data-testid="feature-relationships">
+            <Users size={48} style={{ color: '#5a67d8', marginBottom: '16px' }} />
+            <h3 style={{ fontSize: '20px', marginBottom: '12px', color: '#1a1d29' }}>Relationships Your Best Friend Will Envy</h3>
+            <p style={{ color: '#4a5568', fontSize: '14px', lineHeight: '1.6' }}>
+              Easily send and receive tips, create decentralized blockchain contracts for products, events, and partnerships via 3AM-Splits. Know exactly who you're supporting.
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '32px', textAlign: 'center' }} data-testid="feature-creators">
-            <Users size={48} style={{ color: '#fa709a', marginBottom: '16px', margin: '0 auto 16px' }} />
-            <h3 style={{ fontSize: '20px', marginBottom: '12px' }}>Creator First</h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>
-              Built for creators. No coding or crypto knowledge required
+          <div className="glass-card" style={{ padding: '32px' }} data-testid="feature-content">
+            <Shield size={48} style={{ color: '#9f7aea', marginBottom: '16px' }} />
+            <h3 style={{ fontSize: '20px', marginBottom: '12px', color: '#1a1d29' }}>Finely Tuned Content</h3>
+            <p style={{ color: '#4a5568', fontSize: '14px', lineHeight: '1.6' }}>
+              We cancel clickbait with KYC identity verification for creators with 100+ followers. Plus a sprinkle of 3AM AI to ensure content is backed by real people.
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '32px', textAlign: 'center' }} data-testid="feature-secure">
-            <Shield size={48} style={{ color: '#f5576c', marginBottom: '16px', margin: '0 auto 16px' }} />
-            <h3 style={{ fontSize: '20px', marginBottom: '12px' }}>Secure & Verified</h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>
-              Manual KYC verification ensures a professional community
+          <div className="glass-card" style={{ padding: '32px' }} data-testid="feature-crypto">
+            <Zap size={48} style={{ color: '#ed8936', marginBottom: '16px' }} />
+            <h3 style={{ fontSize: '20px', marginBottom: '12px', color: '#1a1d29' }}>Powered by Crypto</h3>
+            <p style={{ color: '#4a5568', fontSize: '14px', lineHeight: '1.6' }}>
+              Smart wallet and blockchain integration for decentralized, secure access to your finances.
+            </p>
+          </div>
+        </div>
+
+        {/* About Section */}
+        <div style={{ marginTop: '120px', maxWidth: '1000px' }}>
+          <h2 style={{ fontSize: '36px', fontWeight: '700', marginBottom: '32px', color: '#1a1d29' }}>About 3AM</h2>
+          
+          <div className="glass-card" style={{ padding: '48px', textAlign: 'left' }}>
+            <p style={{ fontSize: '16px', lineHeight: '1.8', color: '#4a5568', marginBottom: '24px' }}>
+              3AM is a next-generation creator platform that unites social media, decentralized monetization, and blockchain technology into one seamless system. It's built to empower creators to earn instantly, collaborate freely, and fully own their digital presence — without needing any crypto knowledge or technical setup.
+            </p>
+            
+            <p style={{ fontSize: '16px', lineHeight: '1.8', color: '#4a5568', marginBottom: '24px' }}>
+              In a future where 90% of content may be AI-generated, we help creators and viewers maintain authority through a unified Smart Wallet. Receive instant payouts in both crypto and fiat currencies while engaging audiences through blockchain tipping, splits, and tokenized memberships. Every interaction becomes an opportunity to build sustainable income while maintaining total control of your data and audience.
+            </p>
+            
+            <p style={{ fontSize: '16px', lineHeight: '1.8', color: '#4a5568', marginBottom: '24px' }}>
+              AI tools built into the platform help analyze content performance, identify audience trends, and optimize engagement strategies — giving creators actionable insights to grow faster. Blockchain functionality operates entirely in the background, keeping the experience simple and familiar while maintaining transparency and security.
+            </p>
+            
+            <p style={{ fontSize: '16px', lineHeight: '1.8', color: '#4a5568' }}>
+              More than a platform, 3AM represents a creator-owned economy designed for transparency, empowerment, and collaboration. It bridges the gap between passion and profit, turning creative independence into real financial freedom.
             </p>
           </div>
         </div>
