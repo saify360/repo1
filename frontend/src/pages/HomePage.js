@@ -48,184 +48,152 @@ const HomePage = () => {
   };
 
   return (
-    <div data-testid="home-page">
+    <div data-testid="home-page" style={{ paddingTop: '80px' }}>
       <Navbar />
       
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 24px' }}>
-        {/* Welcome Section */}
-        <div style={{ marginBottom: '48px' }}>
-          <h1 style={{ fontSize: '48px', fontWeight: '700', marginBottom: '12px' }} data-testid="home-welcome">
+      <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '40px 0' }}>
+        {/* Hero Welcome */}
+        <div style={{ padding: '0 40px', marginBottom: '60px' }} className="fade-in-up">
+          <h1 style={{ 
+            fontSize: '48px', 
+            fontWeight: '700', 
+            marginBottom: '12px',
+            background: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            letterSpacing: '-1px'
+          }} data-testid="home-welcome">
             Welcome back, {user?.display_name}!
           </h1>
-          <p style={{ fontSize: '18px', color: 'rgba(255, 255, 255, 0.7)' }} data-testid="home-subtitle">
+          <p style={{ fontSize: '18px', color: 'rgba(255, 255, 255, 0.6)', fontWeight: '300' }} data-testid="home-subtitle">
             Discover amazing content and support your favorite creators
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-          gap: '24px',
-          marginBottom: '48px'
-        }}>
-          <div className="glass-card" style={{ padding: '24px' }} data-testid="stat-subscriptions">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-              <UsersIcon size={24} style={{ color: '#667eea' }} />
-              <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)' }}>Subscriptions</h3>
+        {/* Quick Stats Row */}
+        <div className="content-row fade-in">
+          <div style={{ 
+            display: 'flex',
+            gap: '20px',
+            overflowX: 'auto',
+            paddingBottom: '10px'
+          }}>
+            <div className="glass-card" style={{ padding: '24px', minWidth: '200px' }} data-testid="stat-subscriptions">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <UsersIcon size={24} style={{ color: '#a78bfa' }} />
+                <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)', fontWeight: '300' }}>Subscriptions</h3>
+              </div>
+              <p style={{ fontSize: '32px', fontWeight: '700', color: '#a78bfa' }}>{subscriptions.length}</p>
             </div>
-            <p style={{ fontSize: '32px', fontWeight: '700' }}>{subscriptions.length}</p>
-          </div>
 
-          <div className="glass-card" style={{ padding: '24px' }} data-testid="stat-profile">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-              <Sparkles size={24} style={{ color: '#43e97b' }} />
-              <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)' }}>Your Profile</h3>
+            <div className="glass-card" style={{ padding: '24px', minWidth: '200px' }} data-testid="stat-profile">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <Sparkles size={24} style={{ color: '#8b5cf6' }} />
+                <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)', fontWeight: '300' }}>Your Profile</h3>
+              </div>
+              <button 
+                className="btn-primary" 
+                style={{ marginTop: '12px', padding: '10px 24px', fontSize: '14px' }}
+                onClick={() => navigate('/profile')}
+                data-testid="view-profile-btn"
+              >
+                View Profile
+              </button>
             </div>
-            <button 
-              className="btn-primary" 
-              style={{ marginTop: '12px', padding: '8px 16px', fontSize: '14px' }}
-              onClick={() => navigate('/profile')}
-              data-testid="view-profile-btn"
-            >
-              View Profile
-            </button>
-          </div>
 
-          <div className="glass-card" style={{ padding: '24px' }} data-testid="stat-explore">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-              <TrendingUp size={24} style={{ color: '#f5576c' }} />
-              <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)' }}>Discover</h3>
+            <div className="glass-card" style={{ padding: '24px', minWidth: '200px' }} data-testid="stat-explore">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <TrendingUp size={24} style={{ color: '#10b981' }} />
+                <h3 style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.7)', fontWeight: '300' }}>Discover</h3>
+              </div>
+              <button 
+                className="btn-secondary" 
+                style={{ marginTop: '12px', padding: '10px 24px', fontSize: '14px' }}
+                onClick={() => navigate('/explore')}
+                data-testid="explore-more-btn"
+              >
+                Explore More
+              </button>
             </div>
-            <button 
-              className="btn-secondary" 
-              style={{ marginTop: '12px', padding: '8px 16px', fontSize: '14px' }}
-              onClick={() => navigate('/explore')}
-              data-testid="explore-more-btn"
-            >
-              Explore More
-            </button>
           </div>
         </div>
 
-        {/* Top Creators */}
-        <div style={{ marginBottom: '48px' }}>
-          <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '24px' }} data-testid="top-creators-heading">
-            Top Creators
-          </h2>
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-            gap: '24px' 
-          }}>
-            {topCreators.slice(0, 6).map((creator) => (
+        {/* Trending Creators Row */}
+        <div className="content-row fade-in" data-testid="trending-creators-row">
+          <h2 className="row-title">Trending Creators</h2>
+          <div className="row-container">
+            {topCreators.slice(0, 10).map((creator) => (
               <div
                 key={creator.id}
-                className="glass-card"
-                style={{ padding: '24px', cursor: 'pointer', textAlign: 'center' }}
+                className="creator-card"
                 onClick={() => navigate(`/${creator.username}`)}
                 data-testid={`top-creator-${creator.username}`}
               >
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: creator.profile_image 
-                    ? `url(${creator.profile_image})` 
-                    : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  margin: '0 auto 16px',
-                  border: '3px solid rgba(255, 255, 255, 0.1)'
-                }} />
-                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>
-                  {creator.display_name}
-                </h3>
-                <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px', marginBottom: '8px' }}>
-                  @{creator.username}
-                </p>
-                <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)' }}>
-                  {creator.subscriber_count || 0} subscribers
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Latest Content */}
-        <div>
-          <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '24px' }} data-testid="latest-content-heading">
-            Latest Content
-          </h2>
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-            gap: '24px' 
-          }}>
-            {feed.slice(0, 12).map((item) => (
-              <div
-                key={item.id}
-                className="glass-card"
-                style={{ padding: '0', overflow: 'hidden', cursor: 'pointer' }}
-                onClick={() => navigate(`/${item.username}`)}
-                data-testid={`feed-item-${item.id}`}
-              >
-                {item.media_type === 'image' ? (
-                  <img 
-                    src={item.media_url} 
-                    alt={item.title} 
-                    style={{ 
-                      width: '100%',
-                      height: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '16px 16px 0 0'
-                    }} 
-                  />
-                ) : (
-                  <video 
-                    src={item.media_url} 
-                    style={{ 
-                      width: '100%',
-                      height: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '16px 16px 0 0'
-                    }} 
-                  />
-                )}
-                
-                <div style={{ padding: '20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                    <div style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                    }} />
-                    <span style={{ fontWeight: '600', fontSize: '14px' }}>@{item.username}</span>
+                <div 
+                  className="creator-avatar"
+                  style={{
+                    background: creator.profile_image 
+                      ? `url(${creator.profile_image})` 
+                      : 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }} 
+                />
+                <h3 className="creator-name">{creator.display_name}</h3>
+                <p className="creator-username">@{creator.username}</p>
+                <div className="creator-stats">
+                  <div className="stat-item">
+                    <div className="stat-value">{creator.subscriber_count || 0}</div>
+                    <div className="stat-label">Followers</div>
                   </div>
-                  
-                  <h3 style={{ fontSize: '16px', marginBottom: '8px', fontWeight: '600' }}>{item.title}</h3>
-                  <p style={{ 
-                    color: 'rgba(255, 255, 255, 0.6)', 
-                    fontSize: '14px',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
-                  }}>
-                    {item.description}
-                  </p>
+                  <div className="stat-item">
+                    <div className="stat-value">${creator.total_tips_received?.toFixed(0) || 0}</div>
+                    <div className="stat-label">Earned</div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-
-          {feed.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255, 255, 255, 0.6)' }} data-testid="no-feed">
-              <p>No content yet. Explore creators and start following them!</p>
-            </div>
-          )}
         </div>
+
+        {/* Latest Content Row */}
+        <div className="content-row fade-in" data-testid="latest-content-row">
+          <h2 className="row-title">New Drops</h2>
+          <div className="row-container">
+            {feed.slice(0, 12).map((item) => (
+              <div
+                key={item.id}
+                className="content-item"
+                onClick={() => navigate(`/${item.username}`)}
+                data-testid={`feed-item-${item.id}`}
+              >
+                <div className="content-thumbnail">
+                  {item.media_type === 'image' ? (
+                    <img src={item.media_url} alt={item.title} />
+                  ) : (
+                    <video src={item.media_url} />
+                  )}
+                  <div className="content-overlay">
+                    <Play size={48} style={{ color: 'white', opacity: 0.9 }} />
+                  </div>
+                </div>
+                <div className="content-info">
+                  <h3 className="content-title">{item.title}</h3>
+                  <p className="content-creator">@{item.username}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Empty State */}
+        {feed.length === 0 && topCreators.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '100px 20px', color: 'rgba(255, 255, 255, 0.5)' }} data-testid="no-feed">
+            <Sparkles size={64} style={{ margin: '0 auto 24px', opacity: 0.3 }} />
+            <p style={{ fontSize: '18px', fontWeight: '300' }}>No content yet. Explore creators and start following them!</p>
+          </div>
+        )}
       </div>
     </div>
   );
