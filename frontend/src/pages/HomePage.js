@@ -3,7 +3,7 @@ import { AuthContext } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { Sparkles, TrendingUp, Users as UsersIcon } from 'lucide-react';
+import { Sparkles, TrendingUp, Users as UsersIcon, Play } from 'lucide-react';
 
 const HomePage = () => {
   const { user, API } = useContext(AuthContext);
